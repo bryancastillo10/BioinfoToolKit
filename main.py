@@ -3,7 +3,7 @@ from utilities.colored import color
 import random
 
 randDNAstr = ''.join([random.choice(Nucleotide)
-        for nuc in range(60)])
+        for nuc in range(50)])
 
 DNAStr = validateSeq(randDNAstr)
 print(f'\n Sequence: {color(DNAStr)}\n')
@@ -13,4 +13,13 @@ print(f'[3]  DNA to RNA Transcription: {color(transcription(DNAStr))}\n')
 
 print(f"[4]  DNA String + Reverse Complement: \n5' {color(DNAStr)} 3'")
 print(f"   {''.join(['|' for i in range(len(DNAStr))])}")
-print(f"3' {color(reverse_complement(DNAStr))} 5'\n")
+print(f"3' {color(reverse_complement(DNAStr)[::-1])} 5' [Complementary DNA]")
+print(f"5' {color(reverse_complement(DNAStr))} 3' [Reverse Complementary]")
+
+print(f"[5]  GC Content: {gc_content(DNAStr)}% \n")
+
+print(f"[6]  GC Content in Subsection k=5: {gc_content_subseq(DNAStr, k=5)} \n")
+
+print(f"[7]  Amino Acid Sequence from DNA: {translate_seq(DNAStr)} \n")
+
+print(f"[8]  Codon Frequency (L): {codon_usage(DNAStr, 'L')} \n")
