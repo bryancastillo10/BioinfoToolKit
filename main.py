@@ -1,4 +1,4 @@
-from DNATools import *
+from DNAToolkits import *
 import random
 
 rDNAstr = ''.join([random.choice(Nucleotide)
