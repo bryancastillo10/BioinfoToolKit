@@ -1,4 +1,4 @@
-from bio_struct import *
+from bio_struct import DNA_Codons,RNA_Codons, NUCLEOTIDE_BASE
 from collections import Counter
 import random
 
@@ -15,7 +15,7 @@ class bio_seq:
     #DNA Toolkit Section
     def __validate(self):
         """ Check the input sequences to verify if it is a valid DNA"""
-        return set(Nucleotide).issuperset(self.seq)
+        return set(NUCLEOTIDE_BASE[self.seq_type]).issuperset(self.seq)
     
     def get_seq_biotype(self):
         """Returns a sequence type """
@@ -27,7 +27,7 @@ class bio_seq:
 
     def generate_rnd_seq(self,length=10,seq_type="DNA"):
         """ Generate a random DNA sequence, provided the length"""
-        seq = ''.join([random.choice(Nucleotide)
+        seq = ''.join([random.choice(NUCLEOTIDE_BASE[seq_type])
             for x in range(length)])
         self.__init__(seq,seq_type,"Randomly generated sequence")
     
@@ -46,7 +46,10 @@ class bio_seq:
         Swapping adenine with thymine and guanine with cytosine.
         Reversing the nucleotide sequence to generate another string
         """
-        mapping = str.maketrans('ATCG','TAGC')
+        if self.seq_type == "DNA":
+            mapping = str.maketrans('ATCG','TAGC')
+        else:
+            mapping = str.maketrans('AUCG','UAGC')
         return self.seq.translate(mapping)[::-1]
     
     def gc_content(self):
@@ -66,14 +69,22 @@ class bio_seq:
     
     def translate_seq(self, init_pos=0):
         """Translates a DNA sequence into an amino acid sequence"""
-        return [DNA_Codons[self.seq[pos : pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
-
+        if self.seq_type == "DNA":
+            return [DNA_Codons[self.seq[pos : pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
+        elif self.seq_type == "RNA":
+            return [RNA_Codons[self.seq[pos : pos + 3]] for pos in range(init_pos, len(self.seq) - 2, 3)]
+    
+    
     def codon_usage(self, aminoacid):
         tmplist = []
-        for i in range(0, len(self.seq) - 2, 3):
-            if DNA_Codons[self.seq[i : i + 3]] == aminoacid:
-                tmplist.append(self.seq[i : i + 3])
-
+        if self.seq_type == "DNA":
+            for i in range(0, len(self.seq) - 2, 3):
+                if DNA_Codons[self.seq[i : i + 3]] == aminoacid:
+                    tmplist.append(self.seq[i : i + 3])
+        elif self.seq_type == "RNA":
+            for i in range(0, len(self.seq) - 2, 3):
+                if RNA_Codons[self.seq[i : i + 3]] == aminoacid:
+                    tmplist.append(self.seq[i : i + 3])
         freqDict = dict(Counter(tmplist))
         totalWeight = sum(freqDict.values())
         for seq in freqDict:
@@ -109,13 +120,14 @@ class bio_seq:
                     current_prot[i] += aa
         return proteins
     
+    
     def all_proteins_from_orfs(self, startReadPos=0, endReadPos=0, ordered=False):
         """Compute all possible proteins for all open reading frames"""
-        """ Protein Search DB: https://wwww.ncbi.nlm.nih.gov/nuccore/NM_001185097.2"""
-        """ API can be used to pull protein info """
+        """Protein Search DB: https://www.ncbi.nlm.nih.gov/nuccore/NM_001185097.2"""
+        """API can be used to pull protein info"""
         if endReadPos > startReadPos:
             tmp_seq = bio_seq(
-                self.seq[startReadPos:endReadPos],self.seq_type)
+                self.seq[startReadPos: endReadPos], self.seq_type)
             rfs = tmp_seq.gen_reading_frames()
         else:
             rfs = self.gen_reading_frames()
@@ -125,6 +137,7 @@ class bio_seq:
             prots = self.proteins_from_rf(rf)
             for p in prots:
                 res.append(p)
+
         if ordered:
             return sorted(res, key=len, reverse=True)
         return res
