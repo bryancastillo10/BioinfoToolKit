@@ -95,7 +95,7 @@ def proteins_from_rf(aa_seq):
 # 3) Return a sorted/unsorted list
 def all_proteins_from_orfs(seq, startReadPos=0, endReadPos=0, ordered=False):
     """Compute all possible proteins for all open reading frames"""
-    """ Protine Search DB: https://wwww.ncbi.nlm.nih.gov/nuccore/NM_001185097.2"""
+    """ Protein Search DB: https://wwww.ncbi.nlm.nih.gov/nuccore/NM_001185097.2"""
     """ API can be used to pull protein info """
     if endReadPos > startReadPos:
         rfs = gen_reading_frames(seq[startRead:endRead])
