@@ -1,4 +1,4 @@
-from biomolecules import *
+from structures import *
 import collections
 
 
