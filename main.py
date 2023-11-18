@@ -15,4 +15,4 @@ print(test_dna.codon_usage('L'))
 for rf in test_dna.gen_reading_frames():
     print(rf)
 
-print(test_dna.all_proteins_from_orfs)
+print(test_dna.all_proteins_from_orfs())
