@@ -17,3 +17,4 @@ def color(seq):
             tmpStr += bcolors["reset"] + nuc
 
     return tmpStr + "\033[0;0m"
+    
