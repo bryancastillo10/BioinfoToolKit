@@ -2,7 +2,7 @@ from DNAToolkits import *
 from utilities.colored import color
 import random
 
-randDNAstr = "".join([random.choice(Nucleotide) for nuc in range(100)])
+randDNAstr = "".join([random.choice(Nucleotide) for nuc in range(50)])
 
 DNAStr = validateSeq(randDNAstr)
 print(f"\n Sequence: {color(DNAStr)}\n")
