@@ -1,0 +1,10 @@
+AF313802.1,Methanosaeta concilii strain DSM 3671
+AF414043.1,Methanosarcina mazei strain DSM 2053
+AY970349.1,Methanosaeta harundinacea strain 6Ac 
+AY970348.1,Methanosaeta harundinacea strain 8Ac
+AY672820.1,Methanomethylovorans thermophila 
+AF414045.1,Methanocorpusculum parvum strain DSM 3823
+KC876049.1,Methanomethylovorans uponensis strain EK1
+GU385700.1,Methanobrevibacter smithii strain 4R_4_F02
+KF836868.1,Uncultured Methanoculleus sp. clone HB-107
+KF836855.1,Uncultured Methanoculleus sp. clone XJ6-100
