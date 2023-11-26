@@ -31,7 +31,7 @@ def reverse_complement(seq):
 
 def gc_content(seq):
     """GC content in a DNA/RNA Sequence"""
-    return round(seq.count("C") + seq.count("G") / len(seq) * 100)
+    return round((seq.count("C") + seq.count("G")) / len(seq) * 100)
 
 
 def gc_content_subseq(seq, k=20):
